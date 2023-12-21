@@ -87,7 +87,7 @@ public class ProductoRestController {
             return productoService.save(producto)
                     .map(p -> {
                         response.put("producto", p);
-                        response.put("message", "Producto creado con éxito");
+                        response.put("message", "Producto creado con Ã©xito");
                         response.put("timestamp", new Date());
                         return ResponseEntity.created(URI.create("api/productos/" + p.getId()))
                                 .contentType(MediaType.APPLICATION_JSON)
