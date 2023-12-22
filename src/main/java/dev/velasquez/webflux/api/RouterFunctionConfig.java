@@ -1,6 +1,7 @@
 package dev.velasquez.webflux.api;
 
 import dev.velasquez.webflux.api.handler.ProductoHandler;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -13,6 +14,8 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 @Configuration
 public class RouterFunctionConfig {
 
+    @Value("${config.base.endpoint}")
+    private String baseUrl;
 
 //    private ProductoService productoService;
 //

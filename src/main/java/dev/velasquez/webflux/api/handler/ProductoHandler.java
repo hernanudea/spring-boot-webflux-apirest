@@ -9,13 +9,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.codec.multipart.FilePart;
 import org.springframework.http.codec.multipart.FormFieldPart;
 import org.springframework.stereotype.Component;
-
-import static org.springframework.web.reactive.function.BodyInserters.*;
-
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
@@ -26,18 +22,21 @@ import java.net.URI;
 import java.util.Date;
 import java.util.UUID;
 
+import static org.springframework.web.reactive.function.BodyInserters.fromObject;
+import static org.springframework.web.reactive.function.BodyInserters.fromValue;
+
 @Component
 public class ProductoHandler {
 
     @Value("${config.uploads.path}")
     private String path;
 
-    @Autowired
-    private Validator validator;
+    private final Validator validator;
     private ProductoService productoService;
 
-    public ProductoHandler(ProductoService productoService) {
+    public ProductoHandler(ProductoService productoService, Validator validator) {
         this.productoService = productoService;
+        this.validator = validator;
     }
 
     public Mono<ServerResponse> saveWithPhoto(ServerRequest request) {

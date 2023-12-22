@@ -17,13 +17,16 @@ import java.util.Date;
 
 @SpringBootApplication
 public class SpringBootWebfluxApirestApplication implements CommandLineRunner {
-    @Autowired
-    private ProductoService service;
+    private final ProductoService service;
 
-    @Autowired
-    private ReactiveMongoTemplate mongoTemplate;
+    private final ReactiveMongoTemplate mongoTemplate;
 
-    private static final Logger log = LoggerFactory.getLogger(ReactiveMongoTemplate.class);
+    private static final Logger log = LoggerFactory.getLogger(ReactiveMongoTemplate.class.getName());
+
+    public SpringBootWebfluxApirestApplication(ProductoService service, ReactiveMongoTemplate mongoTemplate) {
+        this.service = service;
+        this.mongoTemplate = mongoTemplate;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(SpringBootWebfluxApirestApplication.class, args);
@@ -42,9 +45,7 @@ public class SpringBootWebfluxApirestApplication implements CommandLineRunner {
 
         Flux.just(electronico, deporte, computacion, muebles)
                 .flatMap(service::saveCategoria)
-                .doOnNext(c -> {
-                    log.info("categoria creada: " + c.getNombre() + ", id: " + c.getId());
-                }).thenMany(
+                .doOnNext(c -> log.info("categoria creada: " + c.getNombre() + ", id: " + c.getId())).thenMany(
                         Flux.just(new Producto("TV Panasonic Pantalla LCD", 456.89, electronico),
                                         new Producto("Sony Camara HD Digital", 177.89, electronico),
                                         new Producto("Apple iPod", 46.89, electronico),
