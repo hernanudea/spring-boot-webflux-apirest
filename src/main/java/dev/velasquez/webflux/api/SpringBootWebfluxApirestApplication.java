@@ -5,7 +5,6 @@ import dev.velasquez.webflux.api.models.documents.Producto;
 import dev.velasquez.webflux.api.models.service.ProductoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
